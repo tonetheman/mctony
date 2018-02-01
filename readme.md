@@ -18,6 +18,8 @@ Take the string that comes out of Code Connection and put it in the game (the ex
 See here for how to start Code Connection and Minecraft
 https://minecraft.makecode.com/setup
 
+Or here
+https://education.minecraft.net/support/knowledge-base/connecting-code-connection-minecraft/
 
 
 Feel free to contact me for questions on twitter! @tonetheman
