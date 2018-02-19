@@ -1,6 +1,6 @@
 
 from urllib.request import urlopen, Request
-from urllib.parse import urlencode
+from urllib.parse import urlencode, quote
 
 FAIL="{\"errorCode\" : 8, \"mesage\" : \"invalid mc.py\"}"
 
@@ -90,32 +90,34 @@ class MC:
             prefix ="~"
         else:
             prefix = ""
-        return urlencode("{0}{1} {0}{2} {0}{3}".format(prefix,x,y,z))
+        res = "{0}{1}%20{0}{2}%20{0}{3}".format(prefix,x,y,z)
+        return res
+
     # world commands
-    # not sure about the format of these yet
     def clone(self, blockpos_begin, blockpos_end,blockpos_dest):
         pass
-    def fill(self, fromX,fromY,fromZ,toX,toY,toZ):
+    def fill(self, fromX,fromY,fromZ,fromRel,toX,toY,toZ,toRel,tilename):
         x = self.create_block_pos(fromX,fromY,fromZ,True)
         y = self.create_block_pos(toX,toY,toZ,True)
-        cmd = "fill?from={0}&to={1}&tilename={3}".format(x,y,"air")
+        cmd="fill?from=" + x +"&to=" + y + "&tileName=" + tilename
         return self._get(cmd)
 
 mc = MC()
 # move agent to player first!
 mc.tptoplayer()
-import time
-time.sleep(5)
-print(mc.inspect("right"))
-print(mc.inspectdata("left"))
-print(mc.turn("right"))
-print(mc.place(1,"forward"))
-print(mc.drop(1,1,"left"))
-print(mc.dropall("up"))
-print(mc.getitemdetail(1))
-print(mc.getitemspace(2))
-print(mc.getitemcount(3))
-mc.fill(0,0,0,50,50,50)
+
+# import time
+# time.sleep(5)
+# print(mc.inspect("right"))
+# print(mc.inspectdata("left"))
+# print(mc.turn("right"))
+# print(mc.place(1,"forward"))
+# print(mc.drop(1,1,"left"))
+# print(mc.dropall("up"))
+# print(mc.getitemdetail(1))
+# print(mc.getitemspace(2))
+# print(mc.getitemcount(3))
+print(mc.fill(0,0,0,True,10,0,0,True,"stone"))
 # print("hi")
 # for i in range(10):
 #    mc.turn("right")
