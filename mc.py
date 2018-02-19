@@ -17,7 +17,7 @@ class MC:
         data = u.read()
         u.close()
         return data
-                
+
     # commands for agent
     def move(self,direction):
         if direction not in self.directions:
@@ -37,6 +37,16 @@ class MC:
         if direction not in self.directions:
             return FAIL
         return self._get("till?direction="+direction)
+    def attack(self,direction):
+        if direction not in self.directions:
+            return FAIL
+        return self._get("attack?direction="+direction)
+    def destroy(self,direction):
+        if direction not in self.directions:
+            return FAIL
+        return self._get("destroy?direction="+direction)
+    def collect(self,item):
+        return self._get("collect?item="+str(item))
     def drop(self,slotnum,quantity,direction):
         if slotnum<1 or slotnum>27:
             return FAIL
