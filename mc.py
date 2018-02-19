@@ -1,5 +1,5 @@
 
-import urllib2
+from urllib.request import urlopen, Request
 
 FAIL="{\"errorCode\" : 8, \"mesage\" : \"invalid mc.py\"}"
 
@@ -13,11 +13,12 @@ class MC:
         if self.debug:
             print("_get called with",path)
         # Code Connection listens on port 8080 localhost
-        u = urllib2.urlopen("http://localhost:8080/" +  path)
+        u = urlopen("http://localhost:8080/" +  path)
         data = u.read()
         u.close()
         return data
-    
+                
+    # commands for agent
     def move(self,direction):
         if direction not in self.directions:
             return FAIL
@@ -32,6 +33,10 @@ class MC:
         if slotnum <1 or slotnum>27:
             return FAIL
         return self._get("place?slotNum="+str(slotnum) + "&direction="+direction)
+    def till(self,direction):
+        if direction not in self.directions:
+            return FAIL
+        return self._get("till?direction="+direction)
     def drop(self,slotnum,quantity,direction):
         if slotnum<1 or slotnum>27:
             return FAIL
