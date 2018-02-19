@@ -57,6 +57,10 @@ class MC:
         if direction not in self.directions:
             return FAIL
         return self._get("dropall?direction="+direction)
+    def detect(self,direction):
+        if direction not in self.directions:
+            return FAIL
+        return self._get("detect?direction="+direction)
     def inspect(self,direction):
         if direction not in self.directions:
             return FAIL
@@ -75,7 +79,10 @@ class MC:
         return self._get("getitemspace?slotNum="+str(slotnum))
     def getitemcount(self,slotnum):
         return self._get("getitemcount?slotNum="+str(slotnum))
-
+    def transfer(self,src_slotnum,quantity,dst_slotnum):
+        return self._get("transfer?srcSlotNum="+str(src_slotnum) + "&quantity=" + str(quantity) + "&dstSlotNum=" + str(dst_slotnum))
+    def tptoplayer(self):
+        return self._get("tptoplayer")
 
 mc = MC()
 print(mc.inspect("right"))
@@ -87,3 +94,4 @@ print(mc.dropall("up"))
 print(mc.getitemdetail(1))
 print(mc.getitemspace(2))
 print(mc.getitemcount(3))
+print("teleport agent to player",mc.tptoplayer())
