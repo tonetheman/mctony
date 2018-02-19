@@ -1,5 +1,6 @@
 
 from urllib.request import urlopen, Request
+from urllib.parse import urlencode
 
 FAIL="{\"errorCode\" : 8, \"mesage\" : \"invalid mc.py\"}"
 
@@ -83,8 +84,28 @@ class MC:
         return self._get("transfer?srcSlotNum="+str(src_slotnum) + "&quantity=" + str(quantity) + "&dstSlotNum=" + str(dst_slotnum))
     def tptoplayer(self):
         return self._get("tptoplayer")
+    
+    def create_block_pos(self,x,y,z,is_relative):
+        if is_relative:
+            prefix ="~"
+        else:
+            prefix = ""
+        return urlencode("{0}{1} {0}{2} {0}{3}".format(prefix,x,y,z))
+    # world commands
+    # not sure about the format of these yet
+    def clone(self, blockpos_begin, blockpos_end,blockpos_dest):
+        pass
+    def fill(self, fromX,fromY,fromZ,toX,toY,toZ):
+        x = self.create_block_pos(fromX,fromY,fromZ,True)
+        y = self.create_block_pos(toX,toY,toZ,True)
+        cmd = "fill?from={0}&to={1}&tilename={3}".format(x,y,"air")
+        return self._get(cmd)
 
 mc = MC()
+# move agent to player first!
+mc.tptoplayer()
+import time
+time.sleep(5)
 print(mc.inspect("right"))
 print(mc.inspectdata("left"))
 print(mc.turn("right"))
@@ -94,4 +115,8 @@ print(mc.dropall("up"))
 print(mc.getitemdetail(1))
 print(mc.getitemspace(2))
 print(mc.getitemcount(3))
-print("teleport agent to player",mc.tptoplayer())
+mc.fill(0,0,0,50,50,50)
+# print("hi")
+# for i in range(10):
+#    mc.turn("right")
+#    mc.turn("left")
