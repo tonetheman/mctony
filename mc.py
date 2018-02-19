@@ -1,6 +1,7 @@
 
 from urllib.request import urlopen, Request
 from urllib.parse import urlencode, quote
+import math
 
 FAIL="{\"errorCode\" : 8, \"mesage\" : \"invalid mc.py\"}"
 
@@ -102,12 +103,12 @@ class MC:
         cmd="fill?from=" + x +"&to=" + y + "&tileName=" + tilename
         # print("DBG:fill",cmd)
         return self._get(cmd)
-    def setblock(self, x,y,z,rel,tilename):
+    def setblock(self, x,y,z,rel,tilename,tiledata):
         # print("DBG:setblock:x,y,z",x,y,z)
         # print("DBG:setblock:rel",rel)
         b = self.create_block_pos(x,y,z,rel)
         # print("DBG:setblock:b",b)
-        cmd="setblock?position=" + b + "&tileName=" + tilename
+        cmd="setblock?position=" + b + "&tileName=" + tilename + "&tileData=" + str(tiledata)
         # print(cmd)
         return self._get(cmd)
 
@@ -117,8 +118,8 @@ mc.tptoplayer()
 
 # import time
 # time.sleep(5)
-# print(mc.inspect("right"))
-# print(mc.inspectdata("left"))
+print(mc.inspect("right"))
+print(mc.inspectdata("left"))
 # print(mc.turn("right"))
 # print(mc.place(1,"forward"))
 # print(mc.drop(1,1,"left"))
@@ -127,8 +128,11 @@ mc.tptoplayer()
 # print(mc.getitemspace(2))
 # print(mc.getitemcount(3))
 # print(mc.fill(0,0,0,True,10,0,0,True,"dirt"))
-print(mc.setblock(0,0,1,True,"dirt"))
+# for i in range(16):
+#    for i in range(10):
+#        mc.setblock(0,0,math.sin(1+i),False,"wool",i)
 # print("hi")
 # for i in range(10):
 #    mc.turn("right")
 #    mc.turn("left")
+

@@ -21,5 +21,11 @@ https://minecraft.makecode.com/setup
 Or here
 https://education.minecraft.net/support/knowledge-base/connecting-code-connection-minecraft/
 
+block names here:
+https://www.minecraftinfo.com/idnamelist.htm
+
+Other tips
+If you ever need to know your coordinates do this in the game
+/tp ~ ~ ~
 
 Feel free to contact me for questions on twitter! @tonetheman
