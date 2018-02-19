@@ -103,12 +103,15 @@ class MC:
         cmd="fill?from=" + x +"&to=" + y + "&tileName=" + tilename
         # print("DBG:fill",cmd)
         return self._get(cmd)
-    def setblock(self, x,y,z,rel,tilename,tiledata):
+    def setblock(self, x,y,z,rel,tilename,tiledata=None):
         # print("DBG:setblock:x,y,z",x,y,z)
         # print("DBG:setblock:rel",rel)
         b = self.create_block_pos(x,y,z,rel)
         # print("DBG:setblock:b",b)
-        cmd="setblock?position=" + b + "&tileName=" + tilename + "&tileData=" + str(tiledata)
+        if tiledata is None:
+            cmd="setblock?position=" + b + "&tileName=" + tilename
+        else:
+            cmd="setblock?position=" + b + "&tileName=" + tilename + "&tileData=" + str(tiledata)
         # print(cmd)
         return self._get(cmd)
 
@@ -136,3 +139,16 @@ print(mc.inspectdata("left"))
 #    mc.turn("right")
 #    mc.turn("left")
 
+# got this from one of my other repos
+# it is super slow and you cannot move during it
+# since all of the positions are relative!
+def sphere(mc):
+    radius = 6
+    px = py = pz = 0
+    for x in range(radius*-1,radius):
+        for y in range(radius*-1, radius):
+            for z in range(radius*-1,radius):
+                if x**2 + y**2 + z**2 < radius**2:
+                    mc.setblock(px + x, py + y + radius, pz - z - 10, True, "stone")
+
+# sphere(mc)
