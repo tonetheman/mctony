@@ -100,6 +100,15 @@ class MC:
         x = self.create_block_pos(fromX,fromY,fromZ,True)
         y = self.create_block_pos(toX,toY,toZ,True)
         cmd="fill?from=" + x +"&to=" + y + "&tileName=" + tilename
+        # print("DBG:fill",cmd)
+        return self._get(cmd)
+    def setblock(self, x,y,z,rel,tilename):
+        # print("DBG:setblock:x,y,z",x,y,z)
+        # print("DBG:setblock:rel",rel)
+        b = self.create_block_pos(x,y,z,rel)
+        # print("DBG:setblock:b",b)
+        cmd="setblock?position=" + b + "&tileName=" + tilename
+        # print(cmd)
         return self._get(cmd)
 
 mc = MC()
@@ -117,7 +126,8 @@ mc.tptoplayer()
 # print(mc.getitemdetail(1))
 # print(mc.getitemspace(2))
 # print(mc.getitemcount(3))
-print(mc.fill(0,0,0,True,10,0,0,True,"stone"))
+# print(mc.fill(0,0,0,True,10,0,0,True,"dirt"))
+print(mc.setblock(0,0,1,True,"dirt"))
 # print("hi")
 # for i in range(10):
 #    mc.turn("right")
